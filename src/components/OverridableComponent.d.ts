@@ -1,6 +1,6 @@
-import * as React from "react";
-import { Omit } from "@material-ui/types";
-import { StyledComponentProps } from "./styles";
+import * as React from 'react';
+import { Omit } from '@material-ui/types';
+import { StyledComponentProps } from './styles';
 
 /**
  * A component whose root component can be controlled via a `component` prop.
@@ -52,7 +52,7 @@ export type BaseProps<M extends OverridableTypeMap> =
  * Props that are valid for material-ui components.
  */
 export interface CommonProps<M extends OverridableTypeMap>
-  extends StyledComponentProps<M["classKey"]> {
+  extends StyledComponentProps<M['classKey']> {
   className?: string;
   style?: React.CSSProperties;
 }
@@ -72,6 +72,4 @@ export type Simplify<T> = T extends any ? { [K in keyof T]: T[K] } : never;
  * @deprecated Not used in this library.
  */
 // tslint:disable-next-line: deprecation
-export type SimplifiedPropsOf<C extends React.ElementType> = Simplify<
-  React.ComponentProps<C>
->;
+export type SimplifiedPropsOf<C extends React.ElementType> = Simplify<React.ComponentProps<C>>;

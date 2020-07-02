@@ -1,8 +1,8 @@
 import { deepmerge } from '@material-ui/utils';
-import MuiError from '@material-ui/utils/macros/MuiError.macro';
+import MuiError from '../utils/macros/MuiError.macro';
 import common from '../colors/common';
 import grey from '../colors/grey';
-import indigo from '../colors/indigo';
+// import indigo from '../colors/indigo';
 import pink from '../colors/pink';
 import red from '../colors/red';
 import orange from '../colors/orange';
@@ -97,9 +97,9 @@ function addLightOrDark(intent, direction, shade, tonalOffset) {
 export default function createPalette(palette) {
   const {
     primary = {
-      light: indigo[300],
-      main: indigo[500],
-      dark: indigo[700],
+      light: green[300],
+      main: green[500],
+      dark: green[700],
     },
     secondary = {
       light: pink.A200,

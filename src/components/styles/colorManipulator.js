@@ -1,4 +1,4 @@
-import MuiError from '@material-ui/utils/macros/MuiError.macro';
+import MuiError from '../utils/macros/MuiError.macro';
 /* eslint-disable no-use-before-define */
 
 /**

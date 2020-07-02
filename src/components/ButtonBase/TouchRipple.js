@@ -1,34 +1,35 @@
-import * as React from "react";
-import { TransitionGroup } from "react-transition-group";
-import clsx from "clsx";
-import withStyles from "../styles/withStyles";
-import Ripple from "./Ripple";
+import * as React from 'react';
+import PropTypes from 'prop-types';
+import { TransitionGroup } from 'react-transition-group';
+import clsx from 'clsx';
+import withStyles from '../styles/withStyles';
+import Ripple from './Ripple';
 
 const DURATION = 550;
 export const DELAY_RIPPLE = 80;
 
-export const styles = theme => ({
+export const styles = (theme) => ({
   /* Styles applied to the root element. */
   root: {
-    overflow: "hidden",
-    pointerEvents: "none",
-    position: "absolute",
+    overflow: 'hidden',
+    pointerEvents: 'none',
+    position: 'absolute',
     zIndex: 0,
     top: 0,
     right: 0,
     bottom: 0,
     left: 0,
-    borderRadius: "inherit",
+    borderRadius: 'inherit',
   },
   /* Styles applied to the internal `Ripple` components `ripple` class. */
   ripple: {
     opacity: 0,
-    position: "absolute",
+    position: 'absolute',
   },
   /* Styles applied to the internal `Ripple` components `rippleVisible` class. */
   rippleVisible: {
     opacity: 0.3,
-    transform: "scale(1)",
+    transform: 'scale(1)',
     animation: `$enter ${DURATION}ms ${theme.transitions.easing.easeInOut}`,
   },
   /* Styles applied to the internal `Ripple` components `ripplePulsate` class. */
@@ -38,11 +39,11 @@ export const styles = theme => ({
   /* Styles applied to the internal `Ripple` components `child` class. */
   child: {
     opacity: 1,
-    display: "block",
-    width: "100%",
-    height: "100%",
-    borderRadius: "50%",
-    backgroundColor: "currentColor",
+    display: 'block',
+    width: '100%',
+    height: '100%',
+    borderRadius: '50%',
+    backgroundColor: 'currentColor',
   },
   /* Styles applied to the internal `Ripple` components `childLeaving` class. */
   childLeaving: {
@@ -51,38 +52,38 @@ export const styles = theme => ({
   },
   /* Styles applied to the internal `Ripple` components `childPulsate` class. */
   childPulsate: {
-    position: "absolute",
+    position: 'absolute',
     left: 0,
     top: 0,
     animation: `$pulsate 2500ms ${theme.transitions.easing.easeInOut} 200ms infinite`,
   },
-  "@keyframes enter": {
-    "0%": {
-      transform: "scale(0)",
+  '@keyframes enter': {
+    '0%': {
+      transform: 'scale(0)',
       opacity: 0.1,
     },
-    "100%": {
-      transform: "scale(1)",
+    '100%': {
+      transform: 'scale(1)',
       opacity: 0.3,
     },
   },
-  "@keyframes exit": {
-    "0%": {
+  '@keyframes exit': {
+    '0%': {
       opacity: 1,
     },
-    "100%": {
+    '100%': {
       opacity: 0,
     },
   },
-  "@keyframes pulsate": {
-    "0%": {
-      transform: "scale(1)",
+  '@keyframes pulsate': {
+    '0%': {
+      transform: 'scale(1)',
     },
-    "50%": {
-      transform: "scale(0.92)",
+    '50%': {
+      transform: 'scale(0.92)',
     },
-    "100%": {
-      transform: "scale(1)",
+    '100%': {
+      transform: 'scale(1)',
     },
   },
 });
@@ -122,10 +123,10 @@ const TouchRipple = React.forwardRef(function TouchRipple(props, ref) {
   }, []);
 
   const startCommit = React.useCallback(
-    params => {
+    (params) => {
       const { pulsate, rippleX, rippleY, rippleSize, cb } = params;
 
-      setRipples(oldRipples => [
+      setRipples((oldRipples) => [
         ...oldRipples,
         <Ripple
           key={nextKey.current}
@@ -140,7 +141,7 @@ const TouchRipple = React.forwardRef(function TouchRipple(props, ref) {
       nextKey.current += 1;
       rippleCallback.current = cb;
     },
-    [classes]
+    [classes],
   );
 
   const start = React.useCallback(
@@ -151,12 +152,12 @@ const TouchRipple = React.forwardRef(function TouchRipple(props, ref) {
         fakeElement = false, // For test purposes
       } = options;
 
-      if (event.type === "mousedown" && ignoringMouseDown.current) {
+      if (event.type === 'mousedown' && ignoringMouseDown.current) {
         ignoringMouseDown.current = false;
         return;
       }
 
-      if (event.type === "touchstart") {
+      if (event.type === 'touchstart') {
         ignoringMouseDown.current = true;
       }
 
@@ -197,19 +198,9 @@ const TouchRipple = React.forwardRef(function TouchRipple(props, ref) {
         }
       } else {
         const sizeX =
-          Math.max(
-            Math.abs((element ? element.clientWidth : 0) - rippleX),
-            rippleX
-          ) *
-            2 +
-          2;
+          Math.max(Math.abs((element ? element.clientWidth : 0) - rippleX), rippleX) * 2 + 2;
         const sizeY =
-          Math.max(
-            Math.abs((element ? element.clientHeight : 0) - rippleY),
-            rippleY
-          ) *
-            2 +
-          2;
+          Math.max(Math.abs((element ? element.clientHeight : 0) - rippleY), rippleY) * 2 + 2;
         rippleSize = Math.sqrt(sizeX ** 2 + sizeY ** 2);
       }
 
@@ -235,7 +226,7 @@ const TouchRipple = React.forwardRef(function TouchRipple(props, ref) {
         startCommit({ pulsate, rippleX, rippleY, rippleSize, cb });
       }
     },
-    [centerProp, startCommit]
+    [centerProp, startCommit],
   );
 
   const pulsate = React.useCallback(() => {
@@ -247,7 +238,7 @@ const TouchRipple = React.forwardRef(function TouchRipple(props, ref) {
 
     // The touch interaction occurs too quickly.
     // We still want to show ripple effect.
-    if (event.type === "touchend" && startTimerCommit.current) {
+    if (event.type === 'touchend' && startTimerCommit.current) {
       event.persist();
       startTimerCommit.current();
       startTimerCommit.current = null;
@@ -259,7 +250,7 @@ const TouchRipple = React.forwardRef(function TouchRipple(props, ref) {
 
     startTimerCommit.current = null;
 
-    setRipples(oldRipples => {
+    setRipples((oldRipples) => {
       if (oldRipples.length > 0) {
         return oldRipples.slice(1);
       }
@@ -275,7 +266,7 @@ const TouchRipple = React.forwardRef(function TouchRipple(props, ref) {
       start,
       stop,
     }),
-    [pulsate, start, stop]
+    [pulsate, start, stop],
   );
 
   return (
@@ -287,6 +278,21 @@ const TouchRipple = React.forwardRef(function TouchRipple(props, ref) {
   );
 });
 
-export default withStyles(styles, { flip: false, name: "MuiTouchRipple" })(
-  React.memo(TouchRipple)
-);
+TouchRipple.propTypes = {
+  /**
+   * If `true`, the ripple starts at the center of the component
+   * rather than at the point of interaction.
+   */
+  center: PropTypes.bool,
+  /**
+   * Override or extend the styles applied to the component.
+   * See [CSS API](#css) below for more details.
+   */
+  classes: PropTypes.object.isRequired,
+  /**
+   * @ignore
+   */
+  className: PropTypes.string,
+};
+
+export default withStyles(styles, { flip: false, name: 'MuiTouchRipple' })(React.memo(TouchRipple));
