@@ -1,11 +1,11 @@
 /* eslint-disable no-console */
-const path = require('path');
-const fse = require('fs-extra');
-const glob = require('glob');
+const path = require("path");
+const fse = require("fs-extra");
+const glob = require("glob");
 
 const packagePath = process.cwd();
-const buildPath = path.join(packagePath, './build');
-const srcPath = path.join(packagePath, './src');
+const buildPath = path.join(packagePath, "./build");
+const srcPath = path.join(packagePath, "./src/components");
 
 async function includeFileInBuild(file) {
   const sourcePath = path.resolve(packagePath, file);
@@ -25,19 +25,21 @@ async function includeFileInBuild(file) {
  * @param {string} rootDir
  */
 async function createModulePackages({ from, to }) {
-  const directoryPackages = glob.sync('*/index.js', { cwd: from }).map(path.dirname);
+  const directoryPackages = glob
+    .sync("*/index.js", { cwd: from })
+    .map(path.dirname);
 
   await Promise.all(
-    directoryPackages.map(async (directoryPackage) => {
+    directoryPackages.map(async directoryPackage => {
       const packageJson = {
         sideEffects: false,
-        module: path.join('../esm', directoryPackage, 'index.js'),
-        typings: './index.d.ts',
+        module: path.join("../esm", directoryPackage, "index.js"),
+        typings: "./index.d.ts",
       };
-      const packageJsonPath = path.join(to, directoryPackage, 'package.json');
+      const packageJsonPath = path.join(to, directoryPackage, "package.json");
 
       const [typingsExist] = await Promise.all([
-        fse.exists(path.join(to, directoryPackage, 'index.d.ts')),
+        fse.exists(path.join(to, directoryPackage, "index.d.ts")),
         fse.writeFile(packageJsonPath, JSON.stringify(packageJson, null, 2)),
       ]);
 
@@ -46,7 +48,7 @@ async function createModulePackages({ from, to }) {
       }
 
       return packageJsonPath;
-    }),
+    })
   );
 }
 
@@ -56,34 +58,47 @@ async function typescriptCopy({ from, to }) {
     return [];
   }
 
-  const files = glob.sync('**/*.d.ts', { cwd: from });
-  const cmds = files.map((file) => fse.copy(path.resolve(from, file), path.resolve(to, file)));
+  const files = glob.sync("**/*.d.ts", { cwd: from });
+  const cmds = files.map(file =>
+    fse.copy(path.resolve(from, file), path.resolve(to, file))
+  );
   return Promise.all(cmds);
 }
 
 async function createPackageFile() {
-  const packageData = await fse.readFile(path.resolve(packagePath, './package.json'), 'utf8');
-  const { nyc, scripts, devDependencies, workspaces, ...packageDataOther } = JSON.parse(
-    packageData,
+  const packageData = await fse.readFile(
+    path.resolve(packagePath, "./package.json"),
+    "utf8"
   );
+  const {
+    nyc,
+    scripts,
+    devDependencies,
+    workspaces,
+    ...packageDataOther
+  } = JSON.parse(packageData);
   const newPackageData = {
     ...packageDataOther,
     private: false,
-    main: './index.js',
-    module: './esm/index.js',
-    typings: './index.d.ts',
+    main: "./index.js",
+    module: "./esm/index.js",
+    typings: "./index.d.ts",
   };
-  const targetPath = path.resolve(buildPath, './package.json');
+  const targetPath = path.resolve(buildPath, "./package.json");
 
-  await fse.writeFile(targetPath, JSON.stringify(newPackageData, null, 2), 'utf8');
+  await fse.writeFile(
+    targetPath,
+    JSON.stringify(newPackageData, null, 2),
+    "utf8"
+  );
   console.log(`Created package.json in ${targetPath}`);
 
   return newPackageData;
 }
 
 async function prepend(file, string) {
-  const data = await fse.readFile(file, 'utf8');
-  await fse.writeFile(file, string + data, 'utf8');
+  const data = await fse.readFile(file, "utf8");
+  await fse.writeFile(file, string + data, "utf8");
 }
 
 async function addLicense(packageData) {
@@ -95,35 +110,36 @@ async function addLicense(packageData) {
 `;
   await Promise.all(
     [
-      './index.js',
-      './esm/index.js',
-      './umd/material-ui.development.js',
-      './umd/material-ui.production.min.js',
-    ].map(async (file) => {
+      "./index.js",
+      "./esm/index.js",
+      "./umd/material-ui.development.js",
+      "./umd/material-ui.production.min.js",
+    ].map(async file => {
       try {
         await prepend(path.resolve(buildPath, file), license);
       } catch (err) {
-        if (err.code === 'ENOENT') {
+        if (err.code === "ENOENT") {
           console.log(`Skipped license for ${file}`);
         } else {
           throw err;
         }
       }
-    }),
+    })
   );
 }
 
 async function run() {
   try {
     const packageData = await createPackageFile();
+    console.log("run -> packageData", packageData);
 
     await Promise.all(
       [
         // use enhanced readme from workspace root for `@material-ui/core`
-        packageData.name === '@material-ui/core' ? '../../README.md' : './README.md',
-        '../../CHANGELOG.md',
-        '../../LICENSE',
-      ].map((file) => includeFileInBuild(file)),
+        packageData.name === "@material-ui/core"
+          ? "../../README.md"
+          : "./README.md",
+      ].map(file => includeFileInBuild(file))
     );
 
     await addLicense(packageData);

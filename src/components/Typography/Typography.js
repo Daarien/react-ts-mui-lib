@@ -196,7 +196,7 @@ Typography.propTypes = {
    * Either a string to use a HTML element or a component.
    * Overrides the behavior of the `variantMapping` prop.
    */
-  component: PropTypes /* @typescript-to-proptypes-ignore */.elementType,
+  component: PropTypes.elementType,
   /**
    * Controls the display type
    */

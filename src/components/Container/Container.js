@@ -1,20 +1,20 @@
-import * as React from 'react';
-import PropTypes from 'prop-types';
-import clsx from 'clsx';
-import withStyles from '../styles/withStyles';
-import capitalize from '../utils/capitalize';
+import * as React from "react";
+import PropTypes from "prop-types";
+import clsx from "clsx";
+import withStyles from "../styles/withStyles";
+import capitalize from "../utils/capitalize";
 
-export const styles = (theme) => ({
+export const styles = theme => ({
   /* Styles applied to the root element. */
   root: {
-    width: '100%',
-    marginLeft: 'auto',
-    boxSizing: 'border-box',
-    marginRight: 'auto',
+    width: "100%",
+    marginLeft: "auto",
+    boxSizing: "border-box",
+    marginRight: "auto",
     paddingLeft: theme.spacing(2),
     paddingRight: theme.spacing(2),
-    display: 'block', // Fix IE 11 layout when used with main.
-    [theme.breakpoints.up('sm')]: {
+    display: "block", // Fix IE 11 layout when used with main.
+    [theme.breakpoints.up("sm")]: {
       paddingLeft: theme.spacing(3),
       paddingRight: theme.spacing(3),
     },
@@ -37,31 +37,31 @@ export const styles = (theme) => ({
   }, {}),
   /* Styles applied to the root element if `maxWidth="xs"`. */
   maxWidthXs: {
-    [theme.breakpoints.up('xs')]: {
+    [theme.breakpoints.up("xs")]: {
       maxWidth: Math.max(theme.breakpoints.values.xs, 444),
     },
   },
   /* Styles applied to the root element if `maxWidth="sm"`. */
   maxWidthSm: {
-    [theme.breakpoints.up('sm')]: {
+    [theme.breakpoints.up("sm")]: {
       maxWidth: theme.breakpoints.values.sm,
     },
   },
   /* Styles applied to the root element if `maxWidth="md"`. */
   maxWidthMd: {
-    [theme.breakpoints.up('md')]: {
+    [theme.breakpoints.up("md")]: {
       maxWidth: theme.breakpoints.values.md,
     },
   },
   /* Styles applied to the root element if `maxWidth="lg"`. */
   maxWidthLg: {
-    [theme.breakpoints.up('lg')]: {
+    [theme.breakpoints.up("lg")]: {
       maxWidth: theme.breakpoints.values.lg,
     },
   },
   /* Styles applied to the root element if `maxWidth="xl"`. */
   maxWidthXl: {
-    [theme.breakpoints.up('xl')]: {
+    [theme.breakpoints.up("xl")]: {
       maxWidth: theme.breakpoints.values.xl,
     },
   },
@@ -71,10 +71,10 @@ const Container = React.forwardRef(function Container(props, ref) {
   const {
     classes,
     className,
-    component: Component = 'div',
+    component: Component = "div",
     disableGutters = false,
     fixed = false,
-    maxWidth = 'lg',
+    maxWidth = "lg",
     ...other
   } = props;
 
@@ -85,9 +85,10 @@ const Container = React.forwardRef(function Container(props, ref) {
         {
           [classes.fixed]: fixed,
           [classes.disableGutters]: disableGutters,
-          [classes[`maxWidth${capitalize(String(maxWidth))}`]]: maxWidth !== false,
+          [classes[`maxWidth${capitalize(String(maxWidth))}`]]:
+            maxWidth !== false,
         },
-        className,
+        className
       )}
       ref={ref}
       {...other}
@@ -103,7 +104,7 @@ Container.propTypes = {
   /**
    * @ignore
    */
-  children: PropTypes /* @typescript-to-proptypes-ignore */.node.isRequired,
+  children: PropTypes.node.isRequired,
   /**
    * Override or extend the styles applied to the component.
    * See [CSS API](#css) below for more details.
@@ -117,7 +118,7 @@ Container.propTypes = {
    * The component used for the root node.
    * Either a string to use a HTML element or a component.
    */
-  component: PropTypes /* @typescript-to-proptypes-ignore */.elementType,
+  component: PropTypes.elementType,
   /**
    * If `true`, the left and right padding is removed.
    */
@@ -134,7 +135,7 @@ Container.propTypes = {
    * The container width grows with the size of the screen.
    * Set to `false` to disable `maxWidth`.
    */
-  maxWidth: PropTypes.oneOf(['lg', 'md', 'sm', 'xl', 'xs', false]),
+  maxWidth: PropTypes.oneOf(["lg", "md", "sm", "xl", "xs", false]),
 };
 
-export default withStyles(styles, { name: 'MuiContainer' })(Container);
+export default withStyles(styles, { name: "MuiContainer" })(Container);

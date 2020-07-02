@@ -64,7 +64,7 @@ const ButtonBase = React.forwardRef(function ButtonBase(props, ref) {
     className,
     component = 'button',
     disabled = false,
-    disableRipple = false,
+    disableRipple = true,
     disableTouchRipple = false,
     focusRipple = false,
     focusVisibleClassName,

@@ -637,7 +637,7 @@ Tooltip.propTypes = {
   /**
    * Tooltip title. Zero-length titles string are never displayed.
    */
-  title: PropTypes /* @typescript-to-proptypes-ignore */.node.isRequired,
+  title: PropTypes.node.isRequired,
   /**
    * The component used for the transition.
    * [Follow this guide](/components/transitions/#transitioncomponent-prop) to learn more about the requirements for this component.

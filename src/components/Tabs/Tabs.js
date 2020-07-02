@@ -338,6 +338,7 @@ const Tabs = React.forwardRef(function Tabs(props, ref) {
     };
   }, [updateIndicatorState, updateScrollButtonState]);
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const handleTabsScroll = React.useCallback(
     debounce(() => {
       updateScrollButtonState();
@@ -551,7 +552,7 @@ Tabs.propTypes = {
    * The component used for the root node.
    * Either a string to use a HTML element or a component.
    */
-  component: PropTypes /* @typescript-to-proptypes-ignore */.elementType,
+  component: PropTypes.elementType,
   /**
    * Determines the color of the indicator.
    */

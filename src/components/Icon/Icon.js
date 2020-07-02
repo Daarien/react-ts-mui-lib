@@ -1,19 +1,19 @@
-import * as React from 'react';
-import PropTypes from 'prop-types';
-import clsx from 'clsx';
-import withStyles from '../styles/withStyles';
-import capitalize from '../utils/capitalize';
+import * as React from "react";
+import PropTypes from "prop-types";
+import clsx from "clsx";
+import withStyles from "../styles/withStyles";
+import capitalize from "../utils/capitalize";
 
-export const styles = (theme) => ({
+export const styles = theme => ({
   /* Styles applied to the root element. */
   root: {
-    userSelect: 'none',
+    userSelect: "none",
     fontSize: theme.typography.pxToRem(24),
-    width: '1em',
-    height: '1em',
+    width: "1em",
+    height: "1em",
     // Chrome fix for https://bugs.chromium.org/p/chromium/issues/detail?id=820541
     // To remove at some point.
-    overflow: 'hidden',
+    overflow: "hidden",
     flexShrink: 0,
   },
   /* Styles applied to the root element if `color="primary"`. */
@@ -38,7 +38,7 @@ export const styles = (theme) => ({
   },
   /* Styles applied to the root element if `fontSize="inherit"`. */
   fontSizeInherit: {
-    fontSize: 'inherit',
+    fontSize: "inherit",
   },
   /* Styles applied to the root element if `fontSize="small"`. */
   fontSizeSmall: {
@@ -54,22 +54,22 @@ const Icon = React.forwardRef(function Icon(props, ref) {
   const {
     classes,
     className,
-    color = 'inherit',
-    component: Component = 'span',
-    fontSize = 'default',
+    color = "inherit",
+    component: Component = "span",
+    fontSize = "default",
     ...other
   } = props;
 
   return (
     <Component
       className={clsx(
-        'material-icons',
+        "material-icons",
         classes.root,
         {
-          [classes[`color${capitalize(color)}`]]: color !== 'inherit',
-          [classes[`fontSize${capitalize(fontSize)}`]]: fontSize !== 'default',
+          [classes[`color${capitalize(color)}`]]: color !== "inherit",
+          [classes[`fontSize${capitalize(fontSize)}`]]: fontSize !== "default",
         },
-        className,
+        className
       )}
       aria-hidden
       ref={ref}
@@ -95,18 +95,25 @@ Icon.propTypes = {
   /**
    * The color of the component. It supports those theme colors that make sense for this component.
    */
-  color: PropTypes.oneOf(['inherit', 'primary', 'secondary', 'action', 'error', 'disabled']),
+  color: PropTypes.oneOf([
+    "inherit",
+    "primary",
+    "secondary",
+    "action",
+    "error",
+    "disabled",
+  ]),
   /**
    * The component used for the root node.
    * Either a string to use a HTML element or a component.
    */
-  component: PropTypes /* @typescript-to-proptypes-ignore */.elementType,
+  component: PropTypes.elementType,
   /**
    * The fontSize applied to the icon. Defaults to 24px, but can be configure to inherit font size.
    */
-  fontSize: PropTypes.oneOf(['inherit', 'default', 'small', 'large']),
+  fontSize: PropTypes.oneOf(["inherit", "default", "small", "large"]),
 };
 
-Icon.muiName = 'Icon';
+Icon.muiName = "Icon";
 
-export default withStyles(styles, { name: 'MuiIcon' })(Icon);
+export default withStyles(styles, { name: "MuiIcon" })(Icon);

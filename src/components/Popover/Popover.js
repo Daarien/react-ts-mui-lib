@@ -525,7 +525,7 @@ Popover.propTypes = {
    * By default, it uses the body of the anchorEl's top-level document object,
    * so it's simply `document.body` most of the time.
    */
-  container: PropTypes /* @typescript-to-proptypes-ignore */.oneOfType([
+  container: PropTypes.oneOfType([
     HTMLElementType,
     PropTypes.instanceOf(React.Component),
     PropTypes.func,
@@ -582,7 +582,7 @@ Popover.propTypes = {
   /**
    * Props applied to the [`Paper`](/api/paper/) element.
    */
-  PaperProps: PropTypes /* @typescript-to-proptypes-ignore */.shape({
+  PaperProps: PropTypes.shape({
     component: elementTypeAcceptingRef,
   }),
   /**

@@ -93,6 +93,8 @@ module.exports = {
     development: {
       plugins: [
         "@babel/plugin-syntax-jsx",
+        "@babel/plugin-proposal-optional-chaining",
+        "@babel/plugin-proposal-nullish-coalescing-operator",
         [
           "babel-plugin-module-resolver",
           {

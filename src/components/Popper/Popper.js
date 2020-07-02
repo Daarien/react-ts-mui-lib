@@ -277,10 +277,7 @@ Popper.propTypes = {
   /**
    * Popper render function or node.
    */
-  children: PropTypes /* @typescript-to-proptypes-ignore */.oneOfType([
-    PropTypes.node,
-    PropTypes.func,
-  ]).isRequired,
+  children: PropTypes.oneOfType([PropTypes.node, PropTypes.func]).isRequired,
   /**
    * A HTML element, component instance, or function that returns either.
    * The `container` will have the portal children appended to it.
@@ -288,7 +285,7 @@ Popper.propTypes = {
    * By default, it uses the body of the top-level document object,
    * so it's simply `document.body` most of the time.
    */
-  container: PropTypes /* @typescript-to-proptypes-ignore */.oneOfType([
+  container: PropTypes.oneOfType([
     HTMLElementType,
     PropTypes.instanceOf(React.Component),
     PropTypes.func,

@@ -1,7 +1,7 @@
 import React from "react";
 import logo from "./logo.svg";
 import "./App.css";
-import Button from "./components/Button";
+import { Button, Grid } from "./components";
 
 function App() {
   return (
@@ -19,11 +19,11 @@ function App() {
         >
           Learn React
         </a>
-        <p>
+        <Grid container>
           <Button variant="contained" color="primary">
             Button
           </Button>
-        </p>
+        </Grid>
       </header>
     </div>
   );

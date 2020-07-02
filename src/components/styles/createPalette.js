@@ -1,29 +1,29 @@
-import { deepmerge } from "@material-ui/utils";
-import MuiError from "../utils/macros/MuiError.macro";
-import common from "../colors/common";
-import grey from "../colors/grey";
-import indigo from "../colors/indigo";
-import pink from "../colors/pink";
-import red from "../colors/red";
-import orange from "../colors/orange";
-import blue from "../colors/blue";
-import green from "../colors/green";
-import { darken, getContrastRatio, lighten } from "./colorManipulator";
+import { deepmerge } from '@material-ui/utils';
+import MuiError from '../utils/macros/MuiError.macro';
+import common from '../colors/common';
+import grey from '../colors/grey';
+// import indigo from '../colors/indigo';
+import pink from '../colors/pink';
+import red from '../colors/red';
+import orange from '../colors/orange';
+import blue from '../colors/blue';
+import green from '../colors/green';
+import { darken, getContrastRatio, lighten } from './colorManipulator';
 
 export const light = {
   // The colors used to style the text.
   text: {
     // The most important text.
-    primary: "rgba(0, 0, 0, 0.87)",
+    primary: 'rgba(0, 0, 0, 0.87)',
     // Secondary text.
-    secondary: "rgba(0, 0, 0, 0.54)",
+    secondary: 'rgba(0, 0, 0, 0.54)',
     // Disabled text have even lower visual prominence.
-    disabled: "rgba(0, 0, 0, 0.38)",
+    disabled: 'rgba(0, 0, 0, 0.38)',
     // Text hints.
-    hint: "rgba(0, 0, 0, 0.38)",
+    hint: 'rgba(0, 0, 0, 0.38)',
   },
   // The color used to divide different elements.
-  divider: "rgba(0, 0, 0, 0.12)",
+  divider: 'rgba(0, 0, 0, 0.12)',
   // The background colors used to style the surfaces.
   // Consistency between these values is important.
   background: {
@@ -33,19 +33,19 @@ export const light = {
   // The colors used to style the action elements.
   action: {
     // The color of an active action like an icon button.
-    active: "rgba(0, 0, 0, 0.54)",
+    active: 'rgba(0, 0, 0, 0.54)',
     // The color of an hovered action.
-    hover: "rgba(0, 0, 0, 0.04)",
+    hover: 'rgba(0, 0, 0, 0.04)',
     hoverOpacity: 0.04,
     // The color of a selected action.
-    selected: "rgba(0, 0, 0, 0.08)",
+    selected: 'rgba(0, 0, 0, 0.08)',
     selectedOpacity: 0.08,
     // The color of a disabled action.
-    disabled: "rgba(0, 0, 0, 0.26)",
+    disabled: 'rgba(0, 0, 0, 0.26)',
     // The background color of a disabled action.
-    disabledBackground: "rgba(0, 0, 0, 0.12)",
+    disabledBackground: 'rgba(0, 0, 0, 0.12)',
     disabledOpacity: 0.38,
-    focus: "rgba(0, 0, 0, 0.12)",
+    focus: 'rgba(0, 0, 0, 0.12)',
     focusOpacity: 0.12,
     activatedOpacity: 0.12,
   },
@@ -54,26 +54,26 @@ export const light = {
 export const dark = {
   text: {
     primary: common.white,
-    secondary: "rgba(255, 255, 255, 0.7)",
-    disabled: "rgba(255, 255, 255, 0.5)",
-    hint: "rgba(255, 255, 255, 0.5)",
-    icon: "rgba(255, 255, 255, 0.5)",
+    secondary: 'rgba(255, 255, 255, 0.7)',
+    disabled: 'rgba(255, 255, 255, 0.5)',
+    hint: 'rgba(255, 255, 255, 0.5)',
+    icon: 'rgba(255, 255, 255, 0.5)',
   },
-  divider: "rgba(255, 255, 255, 0.12)",
+  divider: 'rgba(255, 255, 255, 0.12)',
   background: {
     paper: grey[800],
-    default: "#303030",
+    default: '#303030',
   },
   action: {
     active: common.white,
-    hover: "rgba(255, 255, 255, 0.08)",
+    hover: 'rgba(255, 255, 255, 0.08)',
     hoverOpacity: 0.08,
-    selected: "rgba(255, 255, 255, 0.16)",
+    selected: 'rgba(255, 255, 255, 0.16)',
     selectedOpacity: 0.16,
-    disabled: "rgba(255, 255, 255, 0.3)",
-    disabledBackground: "rgba(255, 255, 255, 0.12)",
+    disabled: 'rgba(255, 255, 255, 0.3)',
+    disabledBackground: 'rgba(255, 255, 255, 0.12)',
     disabledOpacity: 0.38,
-    focus: "rgba(255, 255, 255, 0.12)",
+    focus: 'rgba(255, 255, 255, 0.12)',
     focusOpacity: 0.12,
     activatedOpacity: 0.24,
   },
@@ -86,9 +86,9 @@ function addLightOrDark(intent, direction, shade, tonalOffset) {
   if (!intent[direction]) {
     if (intent.hasOwnProperty(shade)) {
       intent[direction] = intent[shade];
-    } else if (direction === "light") {
+    } else if (direction === 'light') {
       intent.light = lighten(intent.main, tonalOffsetLight);
-    } else if (direction === "dark") {
+    } else if (direction === 'dark') {
       intent.dark = darken(intent.main, tonalOffsetDark);
     }
   }
@@ -97,9 +97,9 @@ function addLightOrDark(intent, direction, shade, tonalOffset) {
 export default function createPalette(palette) {
   const {
     primary = {
-      light: indigo[300],
-      main: indigo[500],
-      dark: indigo[700],
+      light: green[300],
+      main: green[500],
+      dark: green[700],
     },
     secondary = {
       light: pink.A200,
@@ -126,7 +126,7 @@ export default function createPalette(palette) {
       main: green[500],
       dark: green[700],
     },
-    type = "light",
+    type = 'light',
     contrastThreshold = 3,
     tonalOffset = 0.2,
     ...other
@@ -141,15 +141,15 @@ export default function createPalette(palette) {
         ? dark.text.primary
         : light.text.primary;
 
-    if (process.env.NODE_ENV !== "production") {
+    if (process.env.NODE_ENV !== 'production') {
       const contrast = getContrastRatio(background, contrastText);
       if (contrast < 3) {
         console.error(
           [
             `Material-UI: The contrast ratio of ${contrast}:1 for ${contrastText} on ${background}`,
-            "falls below the WCAG recommended absolute minimum contrast ratio of 3:1.",
-            "https://www.w3.org/TR/2008/REC-WCAG20-20081211/#visual-audio-contrast-contrast",
-          ].join("\n")
+            'falls below the WCAG recommended absolute minimum contrast ratio of 3:1.',
+            'https://www.w3.org/TR/2008/REC-WCAG20-20081211/#visual-audio-contrast-contrast',
+          ].join('\n'),
         );
       }
     }
@@ -157,12 +157,7 @@ export default function createPalette(palette) {
     return contrastText;
   }
 
-  const augmentColor = (
-    color,
-    mainShade = 500,
-    lightShade = 300,
-    darkShade = 700
-  ) => {
+  const augmentColor = (color, mainShade = 500, lightShade = 300, darkShade = 700) => {
     color = { ...color };
     if (!color.main && color[mainShade]) {
       color.main = color[mainShade];
@@ -170,30 +165,30 @@ export default function createPalette(palette) {
 
     if (!color.main) {
       throw new MuiError(
-        "Material-UI: The color provided to augmentColor(color) is invalid.\n" +
-          "The color object needs to have a `main` property or a `%s` property.",
-        mainShade
+        'Material-UI: The color provided to augmentColor(color) is invalid.\n' +
+          'The color object needs to have a `main` property or a `%s` property.',
+        mainShade,
       );
     }
 
-    if (typeof color.main !== "string") {
+    if (typeof color.main !== 'string') {
       throw new MuiError(
-        "Material-UI: The color provided to augmentColor(color) is invalid.\n" +
-          "`color.main` should be a string, but `%s` was provided instead.\n\n" +
-          "Did you intend to use one of the following approaches?\n\n" +
+        'Material-UI: The color provided to augmentColor(color) is invalid.\n' +
+          '`color.main` should be a string, but `%s` was provided instead.\n\n' +
+          'Did you intend to use one of the following approaches?\n\n' +
           'import { green } from "@material-ui/core/colors";\n\n' +
-          "const theme1 = createMuiTheme({ palette: {\n" +
-          "  primary: green,\n" +
-          "} });\n\n" +
-          "const theme2 = createMuiTheme({ palette: {\n" +
-          "  primary: { main: green[500] },\n" +
-          "} });",
-        JSON.stringify(color.main)
+          'const theme1 = createMuiTheme({ palette: {\n' +
+          '  primary: green,\n' +
+          '} });\n\n' +
+          'const theme2 = createMuiTheme({ palette: {\n' +
+          '  primary: { main: green[500] },\n' +
+          '} });',
+        JSON.stringify(color.main),
       );
     }
 
-    addLightOrDark(color, "light", lightShade, tonalOffset);
-    addLightOrDark(color, "dark", darkShade, tonalOffset);
+    addLightOrDark(color, 'light', lightShade, tonalOffset);
+    addLightOrDark(color, 'dark', darkShade, tonalOffset);
     if (!color.contrastText) {
       color.contrastText = getContrastText(color.main);
     }
@@ -203,11 +198,9 @@ export default function createPalette(palette) {
 
   const types = { dark, light };
 
-  if (process.env.NODE_ENV !== "production") {
+  if (process.env.NODE_ENV !== 'production') {
     if (!types[type]) {
-      console.error(
-        `Material-UI: The palette type \`${type}\` is not supported.`
-      );
+      console.error(`Material-UI: The palette type \`${type}\` is not supported.`);
     }
   }
 
@@ -220,7 +213,7 @@ export default function createPalette(palette) {
       // The colors used to represent primary interface elements for a user.
       primary: augmentColor(primary),
       // The colors used to represent secondary interface elements for a user.
-      secondary: augmentColor(secondary, "A400", "A200", "A700"),
+      secondary: augmentColor(secondary, 'A400', 'A200', 'A700'),
       // The colors used to represent interface elements that the user should be made aware of.
       error: augmentColor(error),
       // The colors used to represent potentially dangerous actions or important messages.
@@ -245,7 +238,7 @@ export default function createPalette(palette) {
       // The light and dark type object.
       ...types[type],
     },
-    other
+    other,
   );
 
   return paletteOutput;
